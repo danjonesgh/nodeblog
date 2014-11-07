@@ -8,4 +8,11 @@ var postSchema = new mongoose.Schema({
 });
 var Post = mongoose.model('posts', postSchema);
 
+var UserSchema = new mongoose.Schema({
+	username: String,
+	password: String
+});
+var User = mongoose.model('users', UserSchema);
+
 module.exports.Post = Post;
+module.exports.User = User;

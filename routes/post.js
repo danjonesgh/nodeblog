@@ -1,5 +1,8 @@
-var post = require('./schema.js').Post;
+var passport = require('passport');
 var multiparty = require('multiparty');
+
+var post = require('./schema.js').Post;
+
 
 module.exports.addPost = function(req, res) {
 

@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes/index');
+var session = require('express-session');
+var passport = require('passport');
 
 var app = express();
 
@@ -22,8 +24,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
 
+
+app.use(session({ 
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+    console.log('serialize');
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+    console.log('deserialize');
+  User.findOne({_id: id}, function(err, user) {
+    done(err, user);
+  });
+});
+
+app.use('/', routes);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
