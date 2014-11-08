@@ -36,12 +36,16 @@ app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
     console.log('serialize');
+    console.log(user);
+    console.log('end serialize');
   done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
     console.log('deserialize');
   User.findOne({_id: id}, function(err, user) {
+    console.log('userdeserialize');
+    console.log(user);
     done(err, user);
   });
 });

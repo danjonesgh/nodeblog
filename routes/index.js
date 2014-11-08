@@ -49,8 +49,8 @@ router.get('/login', function(req, res) {
 	login.getForm(req, res);
 });
 
-router.post('/login', function(req, res, next) {
-	login.authenticate(req, res, next);
+router.post('/login', function(req, res) {
+	login.authenticate(req, res);
 });
 
 /*

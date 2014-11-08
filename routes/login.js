@@ -38,7 +38,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
-module.exports.authenticate = function(req, res, next) {
+module.exports.authenticate = function(req, res) {
   passport.authenticate('local', function(err, user) {
     console.log('inside auth');
     console.log(err);
@@ -47,11 +47,13 @@ module.exports.authenticate = function(req, res, next) {
     if (!user) { console.log('no user'); }
 
     req.login(user, function(err) {
-      if (err) { console.log('req login error: ' + err); }
+      if (err) { 
+        console.log('req login error: ' + err); 
+      }
       
       res.redirect('/addpost');
     });
-  })(req, res, next);
+  })(req, res);
 }
 
 
