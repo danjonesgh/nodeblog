@@ -16,6 +16,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //app.set('view engine', 'jade');
 
+
+
+
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/blog';
+mongoose.connect(mongoUri, function(err, result) {
+  if(err) {
+    console.log('error connecting to mongodb with mongoose');
+    console.log(err);
+  } else {
+    console.log('successfully connected to mongodb');
+  }
+});
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -58,15 +71,6 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/blog';
-mongoose.connect(mongoUri, function(err, result) {
-  if(err) {
-    console.log('error connecting to mongodb with mongoose');
-    console.log(err);
-  } else {
-    console.log('successfully connected to mongodb');
-  }
-})
 
 // error handlers
 

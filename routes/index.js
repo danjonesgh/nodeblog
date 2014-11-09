@@ -49,9 +49,36 @@ router.get('/login', function(req, res) {
 	login.getForm(req, res);
 });
 
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { 
+      	console.log('error in strat: ' + err);
+      	return done(err); }
+      if (!user) {
+      	console.log('no user');
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+ 
+      return done(null, user);
+    });
+  }
+));
+
+router.post('/login', passport.authenticate('local', 
+	{ successRedirect: '/addpost',
+    failureRedirect: '/login' }
+    ));
+
+/*
 router.post('/login', function(req, res) {
 	login.authenticate(req, res);
 });
+*/
+
 
 /*
 router.use(function(req, res, next) {

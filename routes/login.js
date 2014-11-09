@@ -9,11 +9,15 @@ module.exports.getForm = function(req, res) {
 	res.render('login');
 }
 
+/*
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
+      if (err) { 
+        console.log('error in find strategy: ' + err);
+        return done(err); }
       if (!user) {
+        console.log('no user found');
         return done(null, false, { message: 'Incorrect username.' });
       }
 
@@ -26,6 +30,7 @@ passport.use(new LocalStrategy(
           return done(null, user);
         } 
         else {
+          console.log('in this else??');
           return done(null, false);
         }
       });
@@ -50,12 +55,14 @@ module.exports.authenticate = function(req, res) {
       if (err) { 
         console.log('req login error: ' + err); 
       }
-      
-      res.redirect('/addpost');
+      console.log('inside req login??');
+      //console.log(res);
+      //res.render('form');
+      return res.redirect('addpost');
     });
   })(req, res);
 }
-
+*/
 
 
 
