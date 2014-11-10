@@ -7,12 +7,13 @@ var login = require('./login.js');
 var post = require('./post.js');
 var posts = require('./schema.js').Post;
 
+
 var isLoggedIn = function() {
 	return function(req, res, next) {
 		console.log(req.session);
 		if(req.session) {
 			console.log('in req session');
-			if(req.session.passport.user) {
+			if(req.session.loggedIn) {
 
 				console.log('yes user');
 				next();
@@ -30,6 +31,7 @@ var isLoggedIn = function() {
 		
 }};
 
+
 /* GET home page. */
 router.get('/', function(req, res) {
 	posts.find().sort({date: -1}).exec(function(err, item) {
@@ -37,11 +39,11 @@ router.get('/', function(req, res) {
 	});
 });
 
-router.get('/addpost', isLoggedIn(), function(req, res, next) {
+router.get('/addpost', isLoggedIn(), function(req, res) {
 	post.getForm(req, res);
 });
 
-router.post('/addpost', isLoggedIn(), function(req, res, next) {
+router.post('/addpost', function(req, res) {
 	post.addPost(req, res);
 });
 
@@ -49,35 +51,14 @@ router.get('/login', function(req, res) {
 	login.getForm(req, res);
 });
 
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { 
-      	console.log('error in strat: ' + err);
-      	return done(err); }
-      if (!user) {
-      	console.log('no user');
-        return done(null, false, { message: 'Incorrect username.' });
-      }
- 
-      return done(null, user);
-    });
-  }
-));
-
-router.post('/login', passport.authenticate('local', 
-	{ successRedirect: '/addpost',
-    failureRedirect: '/login' }
-    ));
-
-/*
 router.post('/login', function(req, res) {
-	login.authenticate(req, res);
+	login.login(req, res);
 });
-*/
+
+router.get('/test', function(req, res) {
+	res.render('new');
+});
+
 
 
 /*

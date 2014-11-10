@@ -1,13 +1,13 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var routes = require('./routes/index');
 var session = require('express-session');
-var passport = require('passport');
+
+var routes = require('./routes/index');
 
 var app = express();
 
@@ -38,30 +38,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
+var fifteenMinutes = 1000 * 60 * 15;
 app.use(session({ 
-    secret: 'keyboard cat',
+    secret: 'djblogsecret',
     resave: true,
-    saveUninitialized: true 
+    saveUninitialized: true,
+    cookie: {maxAge: fifteenMinutes} 
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-    console.log('serialize');
-    console.log(user);
-    console.log('end serialize');
-  done(null, user._id);
-});
-
-passport.deserializeUser(function(id, done) {
-    console.log('deserialize');
-  User.findOne({_id: id}, function(err, user) {
-    console.log('userdeserialize');
-    console.log(user);
-    done(err, user);
-  });
-});
 
 app.use('/', routes);
 // catch 404 and forward to error handler

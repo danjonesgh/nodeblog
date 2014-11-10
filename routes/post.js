@@ -42,6 +42,8 @@ module.exports.editPost = function(req, res) {
 }
 
 module.exports.getForm = function(req, res) {
-	console.log('in getform');
+	console.log(req.session);
+	console.log(req.user);
+	console.log('in getformpost');
 	res.render('form');
 }
