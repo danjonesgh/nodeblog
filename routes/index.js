@@ -3,9 +3,10 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 
+var home = require('./home.js');
 var login = require('./login.js');
 var post = require('./post.js');
-var posts = require('./schema.js').Post;
+var Post = require('./schema.js').Post;
 
 
 var isLoggedIn = function() {
@@ -34,9 +35,20 @@ var isLoggedIn = function() {
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	posts.find().sort({date: -1}).exec(function(err, item) {
-  	res.render('index', {posts: item});
+	home.getMonthlyPosts(function(allposts) {
+		console.log(allposts);
+		Post.find().sort({date: -1}).exec(function(err, item) {
+	  	res.render('index', {posts: item, archive: allposts});
+		});		
 	});
+});
+
+router.get('/:year', function(req, res) {
+
+});
+
+router.get('/:year/:month', function(req, res) {
+	res.send(req.params.year + req.params.month);
 });
 
 router.get('/addpost', isLoggedIn(), function(req, res) {

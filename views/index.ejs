@@ -153,7 +153,10 @@
           <div class="sidebar-module">
             <h4>Archives</h4>
             <ol class="list-unstyled">
-              <li><a href="#">October 2014</a></li>
+              <% archive.forEach(function(entry) { %>
+              <li><a href="/<%= entry.year %>/<%= entry.monthNum %>"><%= entry.month %> <%= entry.year %></a></li>
+             
+              <% }); %>
             </ol>
           </div>
           <div class="sidebar-module">

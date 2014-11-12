@@ -12,7 +12,7 @@ module.exports.addPost = function(req, res) {
   	var title = fields.title[0];
   	var body = fields.body[0];
 		var newpost = new post({
-			date: new Date(),
+			date: new Date().getTime(),
 			title: title,
 			body: body
 		});
