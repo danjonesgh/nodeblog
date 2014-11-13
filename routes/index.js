@@ -35,6 +35,7 @@ var isLoggedIn = function() {
 
 /* GET home page. */
 router.get('/', function(req, res) {
+	console.log('in root route');
 	home.getMonthlyPosts(function(allposts) {
 		console.log(allposts);
 		Post.find().sort({date: -1}).exec(function(err, item) {
@@ -48,7 +49,24 @@ router.get('/:year', function(req, res) {
 });
 
 router.get('/:year/:month', function(req, res) {
-	res.send(req.params.year + req.params.month);
+	var year = req.params.year;
+	var month = req.params.month;
+	month--;
+	
+	var start = new Date(year, month, 1);
+	// months vary their ending day number, 28, 29, 30, 31
+	// so just put the end as the first of the next month
+	var end = new Date(year, month+1, 1);
+
+	
+	home.getMonthlyPosts(function(allposts) {
+		Post.find({date: {$gte: start, $lt: end}}, function(err, item) {
+			console.log(item);
+			res.send(item);
+			//res.render('index', {posts: item, archive: allposts});
+		});		
+	});
+
 });
 
 router.get('/addpost', isLoggedIn(), function(req, res) {
