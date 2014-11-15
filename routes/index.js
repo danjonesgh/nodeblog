@@ -31,15 +31,25 @@ var isLoggedIn = function() {
 		
 		
 }};
+/*
 
-
+          <% posts.forEach(function(entry) { %>
+          <div class="blog-post">
+            <h2 class="blog-post-title"><%= entry.title %></h2>
+            <p class="blog-post-meta">
+              <%= entry.date.getMonth()+1 %>-<%= entry.date.getDate() %>-<%= entry.date.getFullYear() %>
+            </p>
+            <%= entry.body %>
+          </div><!-- /.blog-post -->
+          <% }); %>
+          */
 /* GET home page. */
 router.get('/', function(req, res) {
 	console.log('in root route');
 	home.getMonthlyPosts(function(allposts) {
 		console.log(allposts);
 		Post.find().sort({date: -1}).exec(function(err, item) {
-	  	res.render('index', {posts: item, archive: allposts});
+	  	res.render('index', { archive: allposts});
 		});		
 	});
 });
@@ -61,9 +71,9 @@ router.get('/:year/:month', function(req, res) {
 	
 	home.getMonthlyPosts(function(allposts) {
 		Post.find({date: {$gte: start, $lt: end}}, function(err, item) {
-			console.log(item);
+			//console.log(item);
 			res.send(item);
-			//res.render('index', {posts: item, archive: allposts});
+			//res.render('index', { archive: allposts});
 		});		
 	});
 
