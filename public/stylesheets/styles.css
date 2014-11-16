@@ -48,3 +48,12 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.jumbotron a { 
+  color: #FFFFFF;
+  text-decoration: none;
+}
+a {
+  color: #00B7FF;
+}
+

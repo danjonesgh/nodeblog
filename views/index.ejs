@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="/../../favicon.ico">
 
     <title>Dan Jones</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="stylesheets/blog.css" rel="stylesheet">
-    <link href="stylesheets/styles.css" rel="stylesheet">
+    <link href="/stylesheets/blog.css" rel="stylesheet">
+    <link href="/stylesheets/styles.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -40,7 +40,7 @@
     </div>
 
     <div class="jumbotron">
-      <h1>Dan's blog</h1>
+      <a href="/"><h1>Dan's blog</h1></a>
 
     </div>
     <div class="container">
@@ -48,7 +48,15 @@
 
         <div class="col-sm-8 blog-main">
 
-
+          <% posts.forEach(function(entry) { %>
+          <div class="blog-post">
+            <h2 class="blog-post-title"><%= entry.title %></h2>
+            <p class="blog-post-meta">
+              <%= entry.date.getMonth()+1 %>-<%= entry.date.getDate() %>-<%= entry.date.getFullYear() %>
+            </p>
+            <%= entry.body %>
+          </div><!-- /.blog-post -->
+          <% }); %>
 
           <ul class="pager">
             <li><a href="#">Previous</a></li>
@@ -94,9 +102,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="javascript/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="javascript/extra.js"></script>
+    <script src="/javascript/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/javascript/extra.js"></script>
    <!-- <script src="bootstrap/js/docs.min.js"></script>-->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
