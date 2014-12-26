@@ -3,6 +3,10 @@ var bcrypt = require('bcrypt');
 var User = require('./schema.js').User;
 
 module.exports.getForm = function(req, res) {
+
+
+
+
   console.log(req.session);
 	res.render('login');
 }
@@ -43,6 +47,9 @@ module.exports.login = function(req, res) {
           req.session.loggedIn = true;
           console.log(req.session);
           res.redirect('addpost');
+        }
+        else {
+          res.redirect('login');
         }
       });
     }

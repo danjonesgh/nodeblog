@@ -8,7 +8,7 @@ var login = require('./login.js');
 var post = require('./post.js');
 var Post = require('./schema.js').Post;
 
-
+/*
 var isLoggedIn = function() {
 	return function(req, res, next) {
 		console.log(req.session);
@@ -25,7 +25,7 @@ var isLoggedIn = function() {
 			}
 		}
 }};
-
+*/
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -38,9 +38,11 @@ router.get('/', function(req, res) {
 	});
 });
 
+/*
 router.get('/:year', function(req, res) {
 
 });
+*/
 
 router.get('/:year/:month', function(req, res) {
 	var year = req.params.year;
@@ -63,7 +65,7 @@ router.get('/:year/:month', function(req, res) {
 
 });
 
-router.get('/addpost', isLoggedIn(), function(req, res) {
+router.get('/addpost', function(req, res) {
 	post.getForm(req, res);
 });
 
@@ -72,6 +74,7 @@ router.post('/addpost', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
+	console.log('get login');
 	login.getForm(req, res);
 });
 
@@ -80,6 +83,7 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/test', function(req, res) {
+	console.log('get test');
 	res.render('new');
 });
 
