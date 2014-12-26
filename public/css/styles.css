@@ -5,8 +5,8 @@
 	#4377A3
 	296094
 */
-	border-bottom: 10px solid rgb(83, 187, 132);
-	background-color: #206096;
+	border-bottom: 10px solid white;
+  background-color: #53BB84;
 	color: white;
 }
 
@@ -50,7 +50,7 @@ body {
 }
 
 .jumbotron a { 
-  color: #FFFFFF;
+  color: white;
   text-decoration: none;
 }
 a {
