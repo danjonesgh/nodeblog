@@ -74,7 +74,6 @@ router.post('/addpost', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-	console.log('get login');
 	login.getForm(req, res);
 });
 
@@ -83,11 +82,12 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/test', function(req, res) {
-	console.log('get test');
 	res.render('new');
 });
 
-
+router.get('/graph', function(req, res) {
+	res.render('graph');
+});
 
 /*
 router.use(function(req, res, next) {
