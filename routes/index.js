@@ -29,11 +29,16 @@ var isLoggedIn = function() {
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	console.log('in root route');
+	var _links = home.getGraphLinks();
+	console.log('home get root links');
+	console.log(_links);
+
+
+	//console.log('in root route');
 	home.getMonthlyPosts(function(allposts) {
-		console.log(allposts);
+		//console.log(allposts);
 		Post.find().sort({date: -1}).exec(function(err, item) {
-	  	res.render('index', { posts: item, archive: allposts});
+	  	res.render('index', { posts: item, archive: allposts, links: _links});
 		});		
 	});
 });
@@ -86,7 +91,7 @@ router.get('/test', function(req, res) {
 });
 
 router.get('/graph', function(req, res) {
-	res.render('graph');
+	res.render('graphs/graph');
 });
 
 /*

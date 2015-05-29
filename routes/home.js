@@ -1,5 +1,22 @@
 var Post = require('./schema.js').Post;
+var fs = require('fs');
 
+
+
+var getGraphLinks = function() {
+    var path = APP_ROOT + '/views/graphs';
+    var files = fs.readdirSync(path); 
+    var newFiles = [];
+    var len = files.length;
+    for(var i = 0; i < len; i++) {
+        if(files[i].indexOf(".") != 0) {
+            newFiles.push(files[i].split(".")[0]);
+        }
+    }
+    
+    return newFiles;
+}
+module.exports.getGraphLinks = getGraphLinks;
 
 // use this to determine which month/years you should show
 // as a link in the archives, if there are posts from 10/2014,
@@ -33,8 +50,7 @@ var getMonthlyPosts = function(callback) {
                 if(!inArray(monthYears, dateObj))
                     monthYears.push(dateObj);
             }
-            //console.log('monthyears');
-            //console.log(monthYears);
+            
             callback(monthYears);
         }
     });
@@ -93,7 +109,7 @@ switch(monthNum+1) {
     case 12:
         return 'December';
         break;
-}
+    }
 }
 module.exports.getMonthlyPosts = getMonthlyPosts;
 

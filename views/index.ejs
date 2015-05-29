@@ -71,6 +71,14 @@
             <p>Stats and graphs on sparty.</p>
           </div>
           <div class="sidebar-module">
+            <h4>Graphs</h4>
+            <ol class="list-unstyled">
+              <% links.forEach(function(entry) { %>
+              <li><a href="/<%= entry %>"><%= entry %></a></li>             
+              <% }); %>
+            </ol>
+          </div>
+          <div class="sidebar-module">
             <h4>Archives</h4>
             <ol class="list-unstyled">
               <% archive.forEach(function(entry) { %>
